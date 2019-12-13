@@ -5,3 +5,11 @@ navigate(BuildContext context, Widget page) {
 	var route = MaterialPageRoute(builder: (context) => page);
 	nav.push(route);
 }
+
+navigateClearStack(BuildContext context,Widget route){
+  Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => route),
+      ModalRoute.withName("/ROOT")
+  );
+}
