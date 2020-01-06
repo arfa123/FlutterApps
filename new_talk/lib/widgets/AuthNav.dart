@@ -4,8 +4,9 @@ import "package:new_talk/constants.dart";
 
 class AuthNav extends StatelessWidget {
 	String title;
+	Function onPress;
 
-	AuthNav({this.title});
+	AuthNav({this.title, this.onPress});
 
 	Widget build(BuildContext context) {
 		return Container(
@@ -22,7 +23,7 @@ class AuthNav extends StatelessWidget {
 						TextSpan(
 							text: title,
 							style: TextStyle(fontFamily: FONTS["NUNITO_SEMI"], color: COLORS["DARK2"]),
-							recognizer: TapGestureRecognizer()..onTap = () {print("text Press");}
+							recognizer: TapGestureRecognizer()..onTap = () {onPress();}
 						)
 					]
 				)

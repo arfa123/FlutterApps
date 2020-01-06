@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import "package:new_talk/pages/Signup.dart";
+import "package:new_talk/pages/Login.dart";
 import "package:new_talk/widgets/SocialButton.dart";
 import "package:new_talk/widgets/InputField.dart";
 import "package:new_talk/widgets/SubmitButton.dart";
@@ -7,7 +7,7 @@ import "package:new_talk/widgets/AuthNav.dart";
 import "package:new_talk/constants.dart";
 import "package:new_talk/utils.dart";
 
-class Login extends StatelessWidget {
+class Signup extends StatelessWidget {
 	Widget build(BuildContext context) {
 		return Scaffold(
 			body: ListView(
@@ -89,28 +89,21 @@ class Login extends StatelessWidget {
 									hintText: "Please enter your password",
 									imageIcon: "assets/images/password.png",
 								),
-								Row(
-									mainAxisAlignment: MainAxisAlignment.end,
-									children: <Widget>[
-										Container(
-											margin: EdgeInsets.only(bottom: 17),
-											child: Text(
-												"Forgot Password ?",
-												style: TextStyle(fontSize: 15, fontFamily: FONTS["NUNITO_REG"], color: COLORS["DARK2"])
-											)
-										)
-									],
+								InputField(
+									label: "Confirm Password",
+									hintText: "Please enter your confirm password",
+									imageIcon: "assets/images/password.png",
 								),
 								Row(
 									children: [
 										Expanded(
 											child: SubmitButton(
-												title: "Login Now",
+												title: "Register Now",
 											)
 										)
 									]
 								),
-								AuthNav(title: "Register Now", onPress: () => goToSignup(context))
+								AuthNav(title: "Login Now", onPress: () => goToLogin(context)),
 							],
 						),	
 					)
@@ -119,7 +112,7 @@ class Login extends StatelessWidget {
 		);
 	}
 
-	goToSignup(context) {
-		navigateClearStack(context, Signup());
+	goToLogin(context) {
+		navigateClearStack(context, Login());
 	}
 }
