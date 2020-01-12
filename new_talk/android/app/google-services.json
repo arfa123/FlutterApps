@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "47290536999",
+    "firebase_url": "https://project-9d28f.firebaseio.com",
+    "project_id": "project-9d28f",
+    "storage_bucket": "project-9d28f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:47290536999:android:cbf2292adcbda2b9e9aa02",
+        "android_client_info": {
+          "package_name": "com.example.new_talk"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSRqjEJBRmUIpxoHeRakaPuq775NL5T1k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
