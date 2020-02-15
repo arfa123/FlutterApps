@@ -1,5 +1,7 @@
 import "package:flutter/material.dart";
 
+Size deviceDim;
+
 navigate(BuildContext context, Widget page) {
 	var nav = Navigator.of(context);
 	var route = MaterialPageRoute(builder: (context) => page);
@@ -12,4 +14,9 @@ navigateClearStack(BuildContext context, Widget route){
 		MaterialPageRoute(builder: (context) => route),
 		ModalRoute.withName("/ROOT")
 	);
+}
+
+setDeviceDimension(Size size) {
+	print("setDeviceDimension $size");
+	deviceDim = size;
 }

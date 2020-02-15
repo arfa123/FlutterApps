@@ -1,5 +1,8 @@
 import "package:flutter/material.dart";
+import "package:firebase_auth/firebase_auth.dart";
+import "package:flutter/services.dart";
 import "package:new_talk/pages/Signup.dart";
+import "package:new_talk/pages/Talks.dart";
 import "package:new_talk/widgets/SocialButton.dart";
 import "package:new_talk/widgets/InputField.dart";
 import "package:new_talk/widgets/SubmitButton.dart";
@@ -8,8 +11,42 @@ import "package:new_talk/constants.dart";
 import "package:new_talk/utils.dart";
 
 class Login extends StatelessWidget {
+	TextEditingController emailCtrl = TextEditingController();
+	TextEditingController passwordCtrl = TextEditingController();
+	final _loginScaffoldKey = GlobalKey<ScaffoldState>();
+
+	goToSignup(context) {
+		navigateClearStack(context, Signup());
+	}
+
+	signinUser(context) async {
+		String email = emailCtrl.text;
+		String password = passwordCtrl.text;
+
+		if (email.isNotEmpty && password.isNotEmpty) {
+			var firebaseAuth = FirebaseAuth.instance;
+			try{
+				var signinRes = await firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
+				print("Signin res: $signinRes");
+				navigateClearStack(context, Talks());
+			} on PlatformException catch (error)  {
+				List<String> errors = error.toString().split(',');
+				showDialog(errors[1]);
+			} catch(e) {print("Signin error: $e");}
+		} else showDialog("Please fill all input fields");
+	}
+
+	showDialog(String message) {
+		final snackBar = SnackBar(
+			content: Text(message, style: TextStyle(color: Colors.white)),
+			backgroundColor: Colors.red,
+		);
+		_loginScaffoldKey.currentState.showSnackBar(snackBar);
+	}
+
 	Widget build(BuildContext context) {
 		return Scaffold(
+			key: _loginScaffoldKey,
 			body: ListView(
 				children: <Widget>[
 					Padding(
@@ -47,14 +84,14 @@ class Login extends StatelessWidget {
 											flex: 1,
 											child: SocialButton(
 												image: "assets/images/google.png",
-												margin: EdgeInsets.only(right: 19)
+												margin: EdgeInsets.only(right: 18)
 											)
 										),
 										Flexible(
 											flex: 1,
 											child: SocialButton(
 												image: "assets/images/facebook.png",
-												margin: EdgeInsets.only(left: 19)
+												margin: EdgeInsets.only(left: 18)
 											)
 										)
 									],
@@ -83,29 +120,31 @@ class Login extends StatelessWidget {
 									label: "Email",
 									hintText: "Please enter your email",
 									imageIcon: "assets/images/envelope.png",
+									valueController: emailCtrl,
 								),
 								InputField(
 									label: "Password",
 									hintText: "Please enter your password",
 									imageIcon: "assets/images/password.png",
+									valueController: passwordCtrl,
 								),
-								Row(
-									mainAxisAlignment: MainAxisAlignment.end,
-									children: <Widget>[
-										Container(
-											margin: EdgeInsets.only(bottom: 17),
-											child: Text(
-												"Forgot Password ?",
-												style: TextStyle(fontSize: 15, fontFamily: FONTS["NUNITO_REG"], color: COLORS["DARK2"])
-											)
-										)
-									],
+								Container(
+									margin: EdgeInsets.only(bottom: 17),
+									alignment: Alignment.topRight,
+									child: InkWell(
+										onTap: () {},
+										child: Text(
+											"Forgot Password ?",
+											style: TextStyle(fontSize: 15, fontFamily: FONTS["NUNITO_REG"], color: COLORS["DARK2"])
+										),
+									),
 								),
 								Row(
 									children: [
 										Expanded(
 											child: SubmitButton(
 												title: "Login Now",
+												onSubmit: () => signinUser(context),
 											)
 										)
 									]
@@ -117,9 +156,5 @@ class Login extends StatelessWidget {
 				],
 			)
 		);
-	}
-
-	goToSignup(context) {
-		navigateClearStack(context, Signup());
 	}
 }

@@ -5,13 +5,15 @@ class InputField extends StatelessWidget {
 	String label;
 	String hintText;
 	String imageIcon;
+	TextEditingController valueController;
 
-	InputField({this.label, this.hintText, this.imageIcon});
+	InputField({this.label, this.hintText, this.imageIcon, this.valueController});
 
 	Widget build(BuildContext context) {
 		return Container(
 			margin: EdgeInsets.only(bottom: 25),
 			child: TextFormField(
+				controller: valueController,
 				decoration: InputDecoration(
 					border: OutlineInputBorder(
 						borderRadius: BorderRadius.all(Radius.circular(6)),
