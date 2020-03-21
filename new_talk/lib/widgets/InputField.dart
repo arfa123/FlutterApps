@@ -6,8 +6,9 @@ class InputField extends StatelessWidget {
 	String hintText;
 	String imageIcon;
 	TextEditingController valueController;
+	Function validate;
 
-	InputField({this.label, this.hintText, this.imageIcon, this.valueController});
+	InputField({this.label, this.hintText, this.imageIcon, this.valueController, this.validate});
 
 	Widget build(BuildContext context) {
 		return Container(
@@ -30,6 +31,9 @@ class InputField extends StatelessWidget {
 					suffixIcon: ImageIcon(AssetImage(imageIcon))
 				),
 				style: TextStyle(fontSize: 14, fontFamily: FONTS["NUNITO_REG"]),
+				validator: (value) {
+					return validate();
+				},
 			),
 		);
 	}
