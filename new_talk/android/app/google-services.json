@@ -1,27 +1,37 @@
 {
   "project_info": {
-    "project_number": "47290536999",
-    "firebase_url": "https://project-9d28f.firebaseio.com",
-    "project_id": "project-9d28f",
-    "storage_bucket": "project-9d28f.appspot.com"
+    "project_number": "895644656039",
+    "firebase_url": "https://chatapp-3791c.firebaseio.com",
+    "project_id": "chatapp-3791c",
+    "storage_bucket": "chatapp-3791c.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:47290536999:android:cbf2292adcbda2b9e9aa02",
+        "mobilesdk_app_id": "1:895644656039:android:2fd8b32e4a8964420f1682",
         "android_client_info": {
           "package_name": "com.example.new_talk"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "895644656039-q60iqf3455g162d8qf0bip3va335jhnc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyDSRqjEJBRmUIpxoHeRakaPuq775NL5T1k"
+          "current_key": "AIzaSyBL2Qak0qEvc0tb-k1iLzFvGI4LbUxcRcg"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "895644656039-q60iqf3455g162d8qf0bip3va335jhnc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

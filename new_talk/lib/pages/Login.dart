@@ -1,15 +1,16 @@
 import "package:flutter/material.dart";
 import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/services.dart";
+import "package:provider/provider.dart";
 import "package:modal_progress_hud/modal_progress_hud.dart";
-import "package:new_talk/pages/Signup.dart";
-import "package:new_talk/pages/Talks.dart";
 import "package:new_talk/widgets/SocialButton.dart";
 import "package:new_talk/widgets/InputField.dart";
 import "package:new_talk/widgets/SubmitButton.dart";
 import "package:new_talk/widgets/AuthNav.dart";
 import "package:new_talk/constants.dart";
 import "package:new_talk/utils.dart";
+import "package:new_talk/models/auth.dart";
+import "package:new_talk/models/userData.dart";
 
 class Login extends StatefulWidget {
 	LoginState createState() => LoginState();
@@ -23,22 +24,24 @@ class LoginState extends State<Login> {
 	bool isLoading = false;
 
 	goToSignup(context) {
-		navigateClearStack(context, Signup());
+		navigate(context, "/signup");
 	}
 
 	signinUser(context) async {
 		String email = emailCtrl.text;
 		String password = passwordCtrl.text;
 
-		if (_loginFormKey.currentState.validate() && email.isNotEmpty && password.isNotEmpty) {
+		if (_loginFormKey.currentState.validate()) {
 			var firebaseAuth = FirebaseAuth.instance;
 			try{
 				setState(() {
 					isLoading = true;
 				});
 				var signinRes = await firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
-				print("Signin res: $signinRes");
-				navigateClearStack(context, Talks());
+				print("Signin res: ${signinRes.user.displayName}");
+				UserData userData = UserData(userName: signinRes.user.displayName);
+				Provider.of<AuthModel>(context, listen: false).userLogedIn(userData);
+				navigateClearStack(context, "/talks");
 			} on PlatformException catch (error)  {
 				setState(() {
 					isLoading = false;
@@ -51,7 +54,7 @@ class LoginState extends State<Login> {
 				});
 				print("Signin error: $e");
 			}
-		} else showDialog("Please fill all input fields");
+		}
 	}
 
 	showDialog(String message) {

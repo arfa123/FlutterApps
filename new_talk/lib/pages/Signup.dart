@@ -1,15 +1,16 @@
 import "package:flutter/material.dart";
 import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/services.dart";
+import "package:provider/provider.dart";
 import "package:modal_progress_hud/modal_progress_hud.dart";
-import "package:new_talk/pages/Login.dart";
-import "package:new_talk/pages/Talks.dart";
 import "package:new_talk/widgets/SocialButton.dart";
 import "package:new_talk/widgets/InputField.dart";
 import "package:new_talk/widgets/SubmitButton.dart";
 import "package:new_talk/widgets/AuthNav.dart";
 import "package:new_talk/constants.dart";
 import "package:new_talk/utils.dart";
+import "package:new_talk/models/auth.dart";
+import "package:new_talk/models/userData.dart";
 
 class Signup extends StatefulWidget {
 	SignupState createState() => SignupState();
@@ -162,52 +163,50 @@ class SignupState extends State<Signup> {
 	}
 
 	goToLogin(context) {
-		navigateClearStack(context, Login());
+		Navigator.pop(context);
 	}
 
 	signupUser(context) async {
 		String fullName = fullNameCtrl.text;
 		String email = emailCtrl.text;
 		String password = passwordCtrl.text;
-		String cPassword = cPasswordCtrl.text;
-		if (_signupFormKey.currentState.validate() && fullName.isNotEmpty && email.isNotEmpty && password.isNotEmpty && cPassword.isNotEmpty) {
-			if (password == cPassword) {
-				var firebaseAuth = FirebaseAuth.instance;
-				try{
-					setState(() {
-						isLoading = true;
-					});
-					var signupRes = await firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
-					print("Signup res: $signupRes");
-					//Get the created user
-					FirebaseUser u = signupRes.user;
 
-					//Build profile update request
-					var infoUpdate = UserUpdateInfo();
-					infoUpdate.displayName = fullName;
+		if (_signupFormKey.currentState.validate()) {
+			var firebaseAuth = FirebaseAuth.instance;
+			try{
+				setState(() {
+					isLoading = true;
+				});
+				var signupRes = await firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
+				print("Signup res: $signupRes");
+				//Get the created user
+				FirebaseUser u = signupRes.user;
 
-					//Update profile now!
-					await u.updateProfile(infoUpdate);
+				//Build profile update request
+				var infoUpdate = UserUpdateInfo();
+				infoUpdate.displayName = fullName;
 
-					FirebaseUser realtimeUser = await firebaseAuth.currentUser();
-					print(realtimeUser.displayName);
-					navigateClearStack(context, Talks());
-				} on PlatformException catch (error)  {
-					setState(() {
-						isLoading = false;
-					});
-					List<String> errors = error.toString().split(',');
-					showDialog(errors[1]);
-				} catch(e) {
-					setState(() {
-						isLoading = false;
-					});
-					print("Signin error: $e");
-				}
-			} else {
-				showDialog("Password doesn't match");
+				//Update profile now!
+				await u.updateProfile(infoUpdate);
+
+				FirebaseUser realtimeUser = await firebaseAuth.currentUser();
+				print(realtimeUser.displayName);
+				UserData userData = UserData(userName: realtimeUser.displayName);
+				Provider.of<AuthModel>(context, listen: false).userLogedIn(userData);
+				navigateClearStack(context, "/talks");
+			} on PlatformException catch (error)  {
+				setState(() {
+					isLoading = false;
+				});
+				List<String> errors = error.toString().split(',');
+				showDialog(errors[1]);
+			} catch(e) {
+				setState(() {
+					isLoading = false;
+				});
+				print("Signin error: $e");
 			}
-		} else showDialog("Please fill all input fields");
+		}
 	}
 
 	showDialog(String message) {

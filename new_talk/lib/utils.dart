@@ -2,18 +2,12 @@ import "package:flutter/material.dart";
 
 Size deviceDim;
 
-navigate(BuildContext context, Widget page) {
-	var nav = Navigator.of(context);
-	var route = MaterialPageRoute(builder: (context) => page);
-	nav.push(route);
+navigate(BuildContext context, String routeName) {
+	Navigator.pushNamed(context, routeName);
 }
 
-navigateClearStack(BuildContext context, Widget route){
-	Navigator.pushAndRemoveUntil(
-		context,
-		MaterialPageRoute(builder: (context) => route),
-		ModalRoute.withName("/ROOT")
-	);
+navigateClearStack(BuildContext context, String routeName){
+	Navigator.pushNamedAndRemoveUntil(context, routeName, (Route<dynamic> route) => false);
 }
 
 setDeviceDimension(Size size) {
