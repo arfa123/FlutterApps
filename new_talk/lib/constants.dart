@@ -12,6 +12,7 @@ const COLORS = {
 
 const FONTS = {
 	"MONTSERRAT_REG": "Montserrat-Regular",
+	"MONTSERRAT_MED": "Montserrat-Medium",
 	"NUNITO_REG": "Nunito-Regular",
 	"NUNITO_BOLD": "Nunito-Bold",
 	"NUNITO_SEMI": "Nunito-SemiBold",

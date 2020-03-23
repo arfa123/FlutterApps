@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:provider/provider.dart";
 import "package:new_talk/constants.dart";
 import "package:new_talk/models/auth.dart";
+import "package:new_talk/widgets/DrawerCont.dart";
 
 class Talks extends StatelessWidget {
 
@@ -26,7 +27,7 @@ class Talks extends StatelessWidget {
 					)
 				],
 			),
-			drawer: Container(),
+			drawer: DrawerCont(),
 			body: Consumer<AuthModel>(
 				builder: (context, authModel, child) => Text(authModel.userData.userName),
 			),
