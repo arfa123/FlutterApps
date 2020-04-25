@@ -3,6 +3,7 @@ import "package:provider/provider.dart";
 import "package:new_talk/pages/Login.dart";
 import "package:new_talk/pages/Signup.dart";
 import "package:new_talk/pages/Talks.dart";
+import "package:new_talk/pages/CreatePost.dart";
 import "package:new_talk/models/auth.dart";
 
 class App extends StatelessWidget {
@@ -17,7 +18,8 @@ class App extends StatelessWidget {
 				routes: {
 					"/login": (context) => Login(),
 					"/signup": (context) => Signup(),
-					"/talks": (context) => Talks()
+					"/talks": (context) => Talks(),
+					"/createPost": (context) => CreatePost()
 				}
 			),
 		);

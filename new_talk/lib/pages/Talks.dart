@@ -3,6 +3,7 @@ import "package:provider/provider.dart";
 import "package:new_talk/constants.dart";
 import "package:new_talk/models/auth.dart";
 import "package:new_talk/widgets/DrawerCont.dart";
+import "package:new_talk/utils.dart";
 
 class Talks extends StatelessWidget {
 
@@ -23,7 +24,7 @@ class Talks extends StatelessWidget {
 				actions: <Widget>[
 					IconButton(
 						icon: ImageIcon(AssetImage("assets/images/photo-camera.png")),
-						onPressed: () => {},
+						onPressed: () => navigate(context, "/createPost"),
 					)
 				],
 			),

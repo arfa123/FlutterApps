@@ -137,7 +137,7 @@ class DrawerCont extends StatelessWidget {
 							fontSize: 17
 						),
 					),
-					ImageIcon(AssetImage(imageIcon))
+					ImageIcon(AssetImage(imageIcon), color: textColor,)
 				],
 			),
 		);
