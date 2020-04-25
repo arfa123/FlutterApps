@@ -126,6 +126,7 @@ class SignupState extends State<Signup> {
 											hintText: "Please enter your password",
 											imageIcon: "assets/images/password.png",
 											valueController: passwordCtrl,
+											secureText: true,
 											validate: () {
 												if (passwordCtrl.text.length < 6) return "Password must be at least 6 characters long";
 												return null;
@@ -136,6 +137,7 @@ class SignupState extends State<Signup> {
 											hintText: "Please enter your confirm password",
 											imageIcon: "assets/images/password.png",
 											valueController: cPasswordCtrl,
+											secureText: true,
 											validate: () {
 												if (passwordCtrl.text != cPasswordCtrl.text) return "Password doesn't matching";
 												return null;

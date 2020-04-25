@@ -156,6 +156,7 @@ class LoginState extends State<Login> {
 											hintText: "Please enter your password",
 											imageIcon: "assets/images/password.png",
 											valueController: passwordCtrl,
+											secureText: true,
 											validate: () {
 												if (passwordCtrl.text.length < 6) return "Password must be at least 6 characters long";
 												return null;

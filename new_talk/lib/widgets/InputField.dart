@@ -7,14 +7,16 @@ class InputField extends StatelessWidget {
 	String imageIcon;
 	TextEditingController valueController;
 	Function validate;
+	bool secureText;
 
-	InputField({this.label, this.hintText, this.imageIcon, this.valueController, this.validate});
+	InputField({this.label, this.hintText, this.imageIcon, this.valueController, this.validate, this.secureText = false});
 
 	Widget build(BuildContext context) {
 		return Container(
 			margin: EdgeInsets.only(bottom: 25),
 			child: TextFormField(
 				controller: valueController,
+				obscureText: secureText,
 				decoration: InputDecoration(
 					border: OutlineInputBorder(
 						borderRadius: BorderRadius.all(Radius.circular(6)),
@@ -28,7 +30,7 @@ class InputField extends StatelessWidget {
 					labelStyle: TextStyle(fontSize: 14, fontFamily: FONTS["NUNITO_REG"]),
 					hintText: hintText,
 					hintStyle: TextStyle(fontSize: 14, fontFamily: FONTS["NUNITO_LIGHT"]),
-					suffixIcon: ImageIcon(AssetImage(imageIcon))
+					suffixIcon: ImageIcon(AssetImage(imageIcon)),
 				),
 				style: TextStyle(fontSize: 14, fontFamily: FONTS["NUNITO_REG"]),
 				validator: (value) {
